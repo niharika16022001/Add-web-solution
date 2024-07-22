@@ -1,0 +1,30 @@
+<?php
+/**
+ * Template Name: Resource
+ */
+
+get_header(); ?>
+
+<div class="resource-filter-wrapper">
+    <form id="filter-form">
+        <select name="taxonomy" id="taxonomy-select">
+            <option value="">Select Resource Type or Topic</option>
+            <option value="resource_type">Resource Type</option>
+            <option value="resource_topic">Resource Topic</option>
+        </select>
+
+        <select name="taxonomy_term" id="taxonomy-term-select">
+            <option value="">Select Term</option>
+        </select>
+
+        <input type="text" name="keyword" placeholder="Enter keyword">
+
+        <button type="submit">Filter</button>
+    </form>
+
+    <div id="resource-list">
+        <!-- Filtered resources will appear here -->
+    </div>
+</div>
+
+<?php get_footer(); ?>
