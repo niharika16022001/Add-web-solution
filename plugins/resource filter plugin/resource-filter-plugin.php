@@ -46,14 +46,12 @@ function resource_filter_enqueue_scripts() {
     wp_enqueue_script('resource-filter-ajax', plugin_dir_url(__FILE__) . 'js/resource-filter.js', array('jquery'), '1.0', true);
     wp_localize_script('resource-filter-ajax', 'ajax_object', array(
         'ajax_url' => admin_url('admin-ajax.php'),
-        'nonce' => wp_create_nonce('resource_filter_nonce')
     ));
 }
 
 add_action('wp_enqueue_scripts', 'resource_filter_enqueue_scripts');
 
 function fetch_filtered_by_taxonomy() {
-    check_ajax_referer('resource_filter_nonce', 'nonce');
 
     global $wpdb;
     $taxonomy_term_id = isset($_POST['taxonomy_term_id']) ? intval($_POST['taxonomy_term_id']) : 0;
@@ -104,7 +102,6 @@ add_action('wp_ajax_fetch_filtered_by_taxonomy', 'fetch_filtered_by_taxonomy');
 add_action('wp_ajax_nopriv_fetch_filtered_by_taxonomy', 'fetch_filtered_by_taxonomy');
 
 function fetch_filtered_by_keyword() {
-    check_ajax_referer('resource_filter_nonce', 'nonce');
 
     global $wpdb;
     $keyword = isset($_POST['keyword']) ? sanitize_text_field($_POST['keyword']) : '';
@@ -163,7 +160,6 @@ function resource_filter_shortcode() {
             ?>
         </select>
         <input type="text" name="keyword" placeholder="Enter keyword">
-        <input type="hidden" name="nonce" value="<?php echo wp_create_nonce('resource_filter_nonce'); ?>">
     </form>
     <div id="resource-list"></div>
     <?php

@@ -1,7 +1,6 @@
 jQuery(document).ready(function($) {
     $('#filter-form select[name="taxonomy_term"]').change(function() {
         var taxonomyTermId = $(this).find(':selected').data('id');
-        var nonce = $('#filter-form input[name="nonce"]').val();
 
         $.ajax({
             url: ajax_object.ajax_url,
@@ -9,7 +8,6 @@ jQuery(document).ready(function($) {
             data: {
                 action: 'fetch_filtered_by_taxonomy',
                 taxonomy_term_id: taxonomyTermId,
-                nonce: nonce
             },
             success: function(response) {
                 if (response.success) {
@@ -30,7 +28,7 @@ jQuery(document).ready(function($) {
 
         debounceTimeout = setTimeout(function() {
             var keyword = $('input[name="keyword"]').val();
-            var nonce = $('#filter-form input[name="nonce"]').val();
+
 
             $.ajax({
                 url: ajax_object.ajax_url,
@@ -38,7 +36,7 @@ jQuery(document).ready(function($) {
                 data: {
                     action: 'fetch_filtered_by_keyword',
                     keyword: keyword,
-                    nonce: nonce
+
                 },
                 success: function(response) {
                     if (response.success) {
